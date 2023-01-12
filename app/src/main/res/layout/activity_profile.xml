@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".profile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/client_profile"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="sans-serif-condensed-medium"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:hint="Vikash"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/firstname"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:layout_marginTop="30dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="sans-serif-condensed-medium"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:hint="Meena"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/lastname"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone Number"
+            android:layout_marginTop="30dp"
+            android:textSize="18sp"
+            android:layout_marginLeft="30dp"
+            android:fontFamily="sans-serif-condensed-medium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:hint="(+91)6378077747"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:fontFamily="sans-serif-condensed"
+            android:id="@+id/phone_number"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete Account"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:backgroundTint="@color/teal_700"
+            android:id="@+id/delete_account"/>
+
+    </LinearLayout>
+
+</ScrollView>
