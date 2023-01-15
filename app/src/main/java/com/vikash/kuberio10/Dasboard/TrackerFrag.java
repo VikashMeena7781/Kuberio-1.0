@@ -129,7 +129,7 @@ public class TrackerFrag extends Fragment {
 //        // below line is use to call on
 //        // page change listener method.
 //        viewPager.addOnPageChangeListener(viewListener);
-//
+
 
         return view;
 

@@ -25,12 +25,12 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences pref = getSharedPreferences("login",MODE_PRIVATE);
+                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
                 Boolean Is_login = pref.getBoolean("flag",false);
                 String number = pref.getString("number",null);
 
                 if(Is_login){
-                    Intent intent = new Intent(SplashActivity.this,Dashboard.class);
+                    Intent intent = new Intent(SplashActivity.this,Intermediate.class);
                     intent.putExtra("mobile_number",number);
                     startActivity(intent);
                     finish();
@@ -42,19 +42,19 @@ public class SplashActivity extends AppCompatActivity {
             }
         },5000);
 
-//        MyDbHandler db = new MyDbHandler(getApplicationContext());
-//        List<Data> allcontact = db.getAllContacts();
-//
-//        for(Data contact: allcontact){
-//
-//            Log.d("dbharry", "\nId: " + contact.getId() + "\n" +
-//                    "FirstName: " + contact.getFirstname() + "\n"+
-//                    "LastName: " + contact.getLastname() + "\n"+
-//                    "Phone Number: " + contact.getPhoneNumber() + "\n" +
-//                    "Email Id: " + contact.getEmailid() + "\n" );
-//        }
-//        Log.d("dbharry","Number of contacts in Database "+db.getCount());
-//
+        MyDbHandler db = new MyDbHandler(getApplicationContext());
+        List<Data> allcontact = db.getAllContacts();
+
+        for(Data contact: allcontact){
+
+            Log.d("dbharry", "\nId: " + contact.getId() + "\n" +
+                    "FirstName: " + contact.getFirstname() + "\n"+
+                    "LastName: " + contact.getLastname() + "\n"+
+                    "Phone Number: " + contact.getPhoneNumber() + "\n" +
+                    "Email Id: " + contact.getEmailid() + "\n" );
+        }
+        Log.d("dbharry","Number of contacts in Database "+db.getCount());
+////
 
     }
 }

@@ -90,7 +90,7 @@ public class Otp_Verification extends AppCompatActivity {
 //                                            lastname=getIntent().getStringExtra("lastName");
                                             mobile_number=getIntent().getStringExtra("mobile_number");
 
-                                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                            Intent intent = new Intent(getApplicationContext(), Intermediate.class);
                                             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                            intent.putExtra("firstName",firstname);
 //                                            intent.putExtra("lastName",lastname);

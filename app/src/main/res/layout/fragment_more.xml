@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/img"
+    android:background="@drawable/more_background"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vikash.kuberio10.Dasboard.MoreFrag">
     <LinearLayout

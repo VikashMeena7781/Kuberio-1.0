@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".Otp_Verification">
 
@@ -12,7 +13,6 @@
         android:layout_height="wrap_content"
         android:text="Enter OTP"
         android:textSize="28sp"
-        android:layout_marginLeft="30dp"
         android:textStyle="bold"/>
     <TextView
         android:layout_width="wrap_content"

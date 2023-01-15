@@ -53,74 +53,77 @@ public class Signup extends AppCompatActivity {
                     if ((number.getText().toString().trim()).length()==10)
                     {
                         if(!(firstname.getText().toString().length()==0) && !(lastname.getText().toString().length()==0)){
+                            MyDbHandler db = new MyDbHandler(getApplicationContext());
+                            if(db.check_number(number.getText().toString())){
+                                Toast.makeText(Signup.this, "You'r already Signed Up with this Number", Toast.LENGTH_SHORT).show();
+                            }else{
+                                progressBar.setVisibility(View.VISIBLE);
+                                get_otp.setVisibility(View.INVISIBLE);
 
-                            progressBar.setVisibility(View.VISIBLE);
-                            get_otp.setVisibility(View.INVISIBLE);
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                        "+91" + number.getText().toString(),
+                                        60,
+                                        TimeUnit.SECONDS,
+                                        Signup.this,
+                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                            @Override
+                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
-                            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                    "+91" + number.getText().toString(),
-                                    60,
-                                    TimeUnit.SECONDS,
-                                    Signup.this,
-                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                        @Override
-                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                                progressBar.setVisibility(View.GONE);
+                                                get_otp.setVisibility(View.VISIBLE);
+                                            }
 
-                                            progressBar.setVisibility(View.GONE);
-                                            get_otp.setVisibility(View.VISIBLE);
-                                        }
+                                            @Override
+                                            public void onVerificationFailed(@NonNull FirebaseException e) {
 
-                                        @Override
-                                        public void onVerificationFailed(@NonNull FirebaseException e) {
+                                                progressBar.setVisibility(View.GONE);
+                                                get_otp.setVisibility(View.VISIBLE);
+                                                Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
 
-                                            progressBar.setVisibility(View.GONE);
-                                            get_otp.setVisibility(View.VISIBLE);
-                                            Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
+                                            @Override
+                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
 
-                                        @Override
-                                        public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+                                                progressBar.setVisibility(View.GONE);
+                                                get_otp.setVisibility(View.VISIBLE);
 
-                                            progressBar.setVisibility(View.GONE);
-                                            get_otp.setVisibility(View.VISIBLE);
-
-                                            SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = pref.edit();
-                                            editor.putBoolean("flag",true);
-                                            editor.putString("number",number.getText().toString());
-                                            editor.apply();
-
-
-
-                                            /** Adding customers to data */
-                                            /** To set user_name... fetch it's info from database... sending data will not work */
+                                                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = pref.edit();
+                                                editor.putBoolean("flag",true);
+                                                editor.putString("number",number.getText().toString());
+                                                editor.apply();
 
 
-                                            Intent intent=new Intent(Signup.this,Otp_Verification.class);
 
-                                            intent.putExtra("mobile_number",number.getText().toString());
-                                            intent.putExtra("backendotp",backendotp);
+                                                /** Adding customers to data */
+                                                /** To set user_name... fetch it's info from database... sending data will not work */
+
+
+                                                Intent intent=new Intent(Signup.this,Otp_Verification.class);
+
+                                                intent.putExtra("mobile_number",number.getText().toString());
+                                                intent.putExtra("backendotp",backendotp);
 //                                            intent.putExtra("firstName",firstname.getText().toString());
 //                                            intent.putExtra("lastName",lastname.getText().toString());
-                                            startActivity(intent);
+                                                startActivity(intent);
 
-                                            MyDbHandler db = new MyDbHandler(Signup.this);
-                                            Data data = new Data();
-                                            data.setFirstname(firstname.getText().toString());
-                                            data.setLastname(lastname.getText().toString());
-                                            data.setPhoneNumber(number.getText().toString());
-                                            db.addContact(data);
+                                                MyDbHandler db = new MyDbHandler(Signup.this);
+                                                Data data = new Data();
+                                                data.setFirstname(firstname.getText().toString());
+                                                data.setLastname(lastname.getText().toString());
+                                                data.setPhoneNumber(number.getText().toString());
+                                                db.addContact(data);
 
 
-                                            /** Sending Data to profile */
-                                            // Can't send like this.. one time two call for startActvity();
+                                                /** Sending Data to profile */
+                                                // Can't send like this.. one time two call for startActvity();
 //                                            Intent intent_profile = new Intent(getApplicationContext(),profile.class);
 //                                            intent.putExtra("firstName",firstname.getText().toString());
 //                                            intent.putExtra("lastName",lastname.getText().toString());
 //                                            intent_profile.putExtra("mobile_number",number.getText().toString());
 //                                            startActivity(intent_profile);
 
-                                            /** Sending data to dashboard */
+                                                /** Sending data to dashboard */
 //                                            Intent intent_dashboard = new Intent(getApplicationContext(),Dashboard.class);
 //                                            intent_dashboard.putExtra("firstName",firstname.getText().toString());
 //                                            intent_dashboard.putExtra("lastName",lastname.getText().toString());
@@ -128,11 +131,13 @@ public class Signup extends AppCompatActivity {
 
 
 
+                                            }
+
                                         }
 
-                                    }
+                                );
+                            }
 
-                            );
 
                         }else{
                             Toast.makeText(Signup.this, "Please fill all required field", Toast.LENGTH_SHORT).show();

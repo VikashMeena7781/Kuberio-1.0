@@ -56,57 +56,59 @@ public class Login extends AppCompatActivity {
                         MyDbHandler db = new MyDbHandler(getApplicationContext());
                         String number = mobilenumber.getText().toString();
 
-                        if(db.check_number(number)){
-                            progressBar.setVisibility(View.VISIBLE);
-                            Continue.setVisibility(View.INVISIBLE);
+                        if(number!=null){
+                            if(db.check_number(number)){
+                                progressBar.setVisibility(View.VISIBLE);
+                                Continue.setVisibility(View.INVISIBLE);
 
-                            PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                    "+91" + mobilenumber.getText().toString(),
-                                    60,
-                                    TimeUnit.SECONDS,
-                                    Login.this,
-                                    new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                        @Override
-                                        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                                        "+91" + mobilenumber.getText().toString(),
+                                        60,
+                                        TimeUnit.SECONDS,
+                                        Login.this,
+                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+                                            @Override
+                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
 
-                                            progressBar.setVisibility(View.GONE);
-                                            Continue.setVisibility(View.VISIBLE);
+                                                progressBar.setVisibility(View.GONE);
+                                                Continue.setVisibility(View.VISIBLE);
+                                            }
+
+                                            @Override
+                                            public void onVerificationFailed(@NonNull FirebaseException e) {
+
+                                                progressBar.setVisibility(View.GONE);
+                                                Continue.setVisibility(View.VISIBLE);
+                                                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+
+                                            @Override
+                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+
+                                                progressBar.setVisibility(View.GONE);
+                                                Continue.setVisibility(View.VISIBLE);
+
+                                                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = pref.edit();
+                                                editor.putBoolean("flag",true);
+                                                editor.putString("number",mobilenumber.getText().toString());
+                                                editor.apply();
+
+                                                Intent intent=new Intent(Login.this,Otp_Verification.class);
+                                                intent.putExtra("mobile_number",mobilenumber.getText().toString());
+                                                intent.putExtra("backendotp",backendotp);
+                                                startActivity(intent);
+
+                                            }
                                         }
 
-                                        @Override
-                                        public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                                            progressBar.setVisibility(View.GONE);
-                                            Continue.setVisibility(View.VISIBLE);
-                                            Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-
-                                        @Override
-                                        public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-                                            progressBar.setVisibility(View.GONE);
-                                            Continue.setVisibility(View.VISIBLE);
-
-                                            SharedPreferences pref = getSharedPreferences("data",MODE_PRIVATE);
-                                            SharedPreferences.Editor editor = pref.edit();
-                                            editor.putBoolean("flag",true);
-                                            editor.putString("number",mobilenumber.getText().toString());
-                                            editor.apply();
-
-                                            Toast.makeText(Login.this, "Successfully Login", Toast.LENGTH_SHORT).show();
-                                            Intent intent=new Intent(Login.this,Otp_Verification.class);
-                                            intent.putExtra("mobile_number",mobilenumber.getText().toString());
-                                            intent.putExtra("backendotp",backendotp);
-                                            startActivity(intent);
-
-                                        }
-                                    }
-
-                            );
+                                );
 
 
-                        }else{
-                            Toast.makeText(Login.this, "Please Sign Up first!", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Login.this, "Please Sign Up first!", Toast.LENGTH_SHORT).show();
+                            }
+
                         }
 
 

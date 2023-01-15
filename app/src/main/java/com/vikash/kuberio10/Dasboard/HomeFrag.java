@@ -93,12 +93,15 @@ public class HomeFrag extends Fragment {
         user_name=view.findViewById(R.id.user_name);
         /** to set username fetch data from database with mobile_number used*/
         MyDbHandler db = new MyDbHandler(getContext());
-        ArrayList<String> user_info = db.User_info(getActivity().getIntent().getStringExtra("mobile_number"));
+        String number = getActivity().getIntent().getStringExtra("mobile_number");
+        if(number!=null){
+            ArrayList<String> user_info = db.User_info(number);
 
-        String firstname = user_info.get(0);
-        String lastname = user_info.get(1);
+            String firstname = user_info.get(0);
+            String lastname = user_info.get(1);
 
-        user_name.setText(firstname+" "+lastname);
+            user_name.setText(firstname+" "+lastname);
+        }
 
 
         ImageView notification = view.findViewById(R.id.notification);
@@ -124,6 +127,7 @@ public class HomeFrag extends Fragment {
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.Conatiner,fragment);
+                ft.addToBackStack(null);
                 ft.commit();
             }
         });

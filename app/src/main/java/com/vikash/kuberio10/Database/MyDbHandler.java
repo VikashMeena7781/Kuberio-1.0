@@ -19,7 +19,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String create = "CREATE TABLE " + Params.TABLE_NAME + "("
-                + Params.KEY_ID + "INTEGER PRIMARY KEY," + Params.KEY_FIRST_NAME
+                + Params.KEY_ID + " INTEGER PRIMARY KEY," + Params.KEY_FIRST_NAME
                 + " TEXT, " + Params.KEY_LAST_NAME + " TEXT, " + Params.KEY_PHONE + " TEXT, " + Params.EMAIL_ID +" TEXT" +")";
         Log.d("dbharry", "Query being run is : "+ create);
         db.execSQL(create);
@@ -55,7 +55,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 Data data = new Data();
-//                data.setId(Integer.valueOf(cursor.getString(0)));
+                data.setId(Integer.parseInt(cursor.getString(0)));
                 data.setFirstname(cursor.getString(1));
                 data.setLastname(cursor.getString(2));
                 data.setPhoneNumber(cursor.getString(3));
@@ -112,9 +112,11 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
         if(cursor.moveToFirst()){
             do {
-//                Log.d("dbharry",String.valueOf(number.equals(cursor.getString(2))));
-                if(number.equals(cursor.getString(3))){
-                    return true;
+                String user_number= cursor.getString(3);
+                if(user_number!=null){
+                    if(number.equals(user_number)){
+                        return true;
+                    }
                 }
             }while (cursor.moveToNext());
         }
@@ -130,14 +132,17 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                if (number.equals(cursor.getString(3))) {
-                    String firstname = cursor.getString(1);
-                    String lastname = cursor.getString(2);
-                    String email_id = cursor.getString(4);
-                    user_info.add(firstname);
-                    user_info.add(lastname);
-                    user_info.add(email_id);
-                    return user_info;
+                String user_number= cursor.getString(3);
+                if(user_number!=null){
+                    if (number.equals(user_number)) {
+                        String firstname = cursor.getString(1);
+                        String lastname = cursor.getString(2);
+                        String email_id = cursor.getString(4);
+                        user_info.add(firstname);
+                        user_info.add(lastname);
+                        user_info.add(email_id);
+                        return user_info;
+                    }
                 }
             } while (cursor.moveToNext());
 
