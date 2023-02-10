@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -25,245 +26,246 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import java.util.concurrent.TimeUnit;
 
 public class Otp_Verification extends AppCompatActivity {
-    EditText et1, et2, et3, et4, et5, et6;
-    String getbackendotp;
-    ProgressBar progressBar;
+//    EditText et1, et2, et3, et4, et5, et6;
+//    String getbackendotp;
+//    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp_verification);
-
-        et1 = findViewById(R.id.inputotp1);
-        et2 = findViewById(R.id.inputotp2);
-        et3 = findViewById(R.id.inputotp3);
-        et4 = findViewById(R.id.inputotp4);
-        et5 = findViewById(R.id.inputotp5);
-        et6 = findViewById(R.id.inputotp6);
-        progressBar=findViewById(R.id.probar);
-
-        TextView number=findViewById(R.id.txtmobileno);
-
-
-        number.setText(String.format(
-                "+91-%S", getIntent().getStringExtra("mobile_number")
-        ));
-
-        getbackendotp=getIntent().getStringExtra("backendotp");
-
-        Button verify = findViewById(R.id.verify);
-
-        verify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!et1.getText().toString().trim().isEmpty() && !et2.getText().toString().trim().isEmpty()
-                        && !et3.getText().toString().trim().isEmpty()
-                        && !et4.getText().toString().trim().isEmpty()
-                        && !et5.getText().toString().trim().isEmpty()
-                        && !et6.getText().toString().trim().isEmpty()) {
-
-                    // marging user's input in a string
-                    String getuserotp = et1.getText().toString() +
-                            et2.getText().toString() +
-                            et3.getText().toString() +
-                            et4.getText().toString() +
-                            et5.getText().toString() +
-                            et6.getText().toString();
-
-                    if (getbackendotp != null) {
-
-                        progressBar.setVisibility(View.VISIBLE);
-                        verify.setVisibility(View.INVISIBLE);
-
-                        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getbackendotp, getuserotp);
-                        FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
-                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<AuthResult> task) {
-
-                                        progressBar.setVisibility(View.GONE);
-                                        verify.setVisibility(View.VISIBLE);
-                                        if (task.isSuccessful()) {
-//                                            /** get data from signup */
-                                            String mobile_number;
-//                                            firstname=getIntent().getStringExtra("firstName");
-//                                            lastname=getIntent().getStringExtra("lastName");
-                                            mobile_number=getIntent().getStringExtra("mobile_number");
-
-                                            Intent intent = new Intent(getApplicationContext(), Intermediate.class);
-                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                                            intent.putExtra("firstName",firstname);
-//                                            intent.putExtra("lastName",lastname);
-                                            intent.putExtra("mobile_number",mobile_number);
-                                            startActivity(intent);
-                                            finish();
-                                        } else {
-                                            Toast.makeText(Otp_Verification.this, "Enter correct OTP", Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                });
-
-
-                    } else {
-                        Toast.makeText(Otp_Verification.this, "Please check internet", Toast.LENGTH_SHORT).show();
-                    }
-
-                    //Toast.makeText(MainActivity2.this, "OTP Verify", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(Otp_Verification.this, "Please fill all number", Toast.LENGTH_SHORT).show();
-                }
-
-
-                // movenumtonext();
-
-
-            }
-        });
-
-        findViewById(R.id.sendotp_again).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                        "+92" + getIntent().getStringExtra("mobile"),
-                        60,
-                        TimeUnit.SECONDS,
-                        Otp_Verification.this,
-                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                            @Override
-                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-
-                            }
-
-                            @Override
-                            public void onVerificationFailed(@NonNull FirebaseException e) {
-
-
-                                Toast.makeText(Otp_Verification.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onCodeSent(@NonNull String newbackendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-
-                                getbackendotp = newbackendotp;
-                                Toast.makeText(Otp_Verification.this, "OTP Send Successfully", Toast.LENGTH_SHORT).show();
-
-
-                            }
-                        }
-
-                );
-
-            }
-        });
-
-        movenumtonext(); //move num to next
-
-    }
-
-    private void movenumtonext() {
-        et1.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!charSequence.toString().trim().isEmpty()) {
-                    et2.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        et2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!charSequence.toString().trim().isEmpty()) {
-                    et3.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        et3.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!charSequence.toString().trim().isEmpty()) {
-                    et4.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        et4.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!charSequence.toString().trim().isEmpty()) {
-                    et5.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        et5.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                if (!charSequence.toString().trim().isEmpty()) {
-                    et6.requestFocus();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+//        et1 = findViewById(R.id.inputotp1);
+//        et2 = findViewById(R.id.inputotp2);
+//        et3 = findViewById(R.id.inputotp3);
+//        et4 = findViewById(R.id.inputotp4);
+//        et5 = findViewById(R.id.inputotp5);
+//        et6 = findViewById(R.id.inputotp6);
+//        progressBar=findViewById(R.id.probar);
+//
+//        TextView number=findViewById(R.id.txtmobileno);
+//
+//
+//        number.setText(String.format(
+//                "+91-%S", getIntent().getStringExtra("mobile_number")
+//        ));
+//
+//        getbackendotp=getIntent().getStringExtra("backendotp");
+//
+//        Button verify = findViewById(R.id.verify);
+//
+//        verify.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!et1.getText().toString().trim().isEmpty() && !et2.getText().toString().trim().isEmpty()
+//                        && !et3.getText().toString().trim().isEmpty()
+//                        && !et4.getText().toString().trim().isEmpty()
+//                        && !et5.getText().toString().trim().isEmpty()
+//                        && !et6.getText().toString().trim().isEmpty()) {
+//
+//                    // marging user's input in a string
+//                    String getuserotp = et1.getText().toString() +
+//                            et2.getText().toString() +
+//                            et3.getText().toString() +
+//                            et4.getText().toString() +
+//                            et5.getText().toString() +
+//                            et6.getText().toString();
+//
+//                    if (getbackendotp != null) {
+//
+//                        progressBar.setVisibility(View.VISIBLE);
+//                        verify.setVisibility(View.INVISIBLE);
+//
+//                        PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(getbackendotp, getuserotp);
+//                        FirebaseAuth.getInstance().signInWithCredential(phoneAuthCredential)
+//                                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<AuthResult> task) {
+//
+//                                        progressBar.setVisibility(View.GONE);
+//                                        verify.setVisibility(View.VISIBLE);
+//                                        if (task.isSuccessful()) {
+////                                            /** get data from signup */
+//                                            String mobile_number;
+////                                            firstname=getIntent().getStringExtra("firstName");
+////                                            lastname=getIntent().getStringExtra("lastName");
+//                                            mobile_number=getIntent().getStringExtra("mobile_number");
+//
+//                                            Intent intent = new Intent(getApplicationContext(), Intermediate.class);
+//                                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                                            intent.putExtra("firstName",firstname);
+////                                            intent.putExtra("lastName",lastname);
+//                                            intent.putExtra("mobile_number",mobile_number);
+//                                            startActivity(intent);
+//                                            finish();
+//                                        } else {
+//                                            Toast.makeText(Otp_Verification.this, "Enter correct OTP", Toast.LENGTH_SHORT).show();
+//                                        }
+//                                    }
+//                                });
+//
+//
+//                    } else {
+//                        Toast.makeText(Otp_Verification.this, "Please check internet", Toast.LENGTH_SHORT).show();
+//                    }
+//
+//                    //Toast.makeText(MainActivity2.this, "OTP Verify", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(Otp_Verification.this, "Please fill all number", Toast.LENGTH_SHORT).show();
+//                }
+//
+//
+//                // movenumtonext();
+//
+//
+//            }
+//        });
+//
+//        findViewById(R.id.sendotp_again).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                        "+92" + getIntent().getStringExtra("mobile"),
+//                        60,
+//                        TimeUnit.SECONDS,
+//                        Otp_Verification.this,
+//                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//                            @Override
+//                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+//
+//
+//                            }
+//
+//                            @Override
+//                            public void onVerificationFailed(@NonNull FirebaseException e) {
+//
+//
+//                                Toast.makeText(Otp_Verification.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                            @Override
+//                            public void onCodeSent(@NonNull String newbackendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+//
+//
+//                                getbackendotp = newbackendotp;
+//                                Toast.makeText(Otp_Verification.this, "OTP Send Successfully", Toast.LENGTH_SHORT).show();
+//
+//
+//                            }
+//                        }
+//
+//                );
+//
+//            }
+//        });
+//
+//        movenumtonext(); //move num to next
+//
+//    }
+//
+//    private void movenumtonext() {
+//        et1.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                if (!charSequence.toString().trim().isEmpty()) {
+//                    et2.requestFocus();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
+//        et2.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                if (!charSequence.toString().trim().isEmpty()) {
+//                    et3.requestFocus();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
+//        et3.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                if (!charSequence.toString().trim().isEmpty()) {
+//                    et4.requestFocus();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
+//        et4.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                if (!charSequence.toString().trim().isEmpty()) {
+//                    et5.requestFocus();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
+//        et5.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//                if (!charSequence.toString().trim().isEmpty()) {
+//                    et6.requestFocus();
+//                }
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
+//
 
 
 

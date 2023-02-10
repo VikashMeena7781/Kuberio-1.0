@@ -85,7 +85,7 @@ public class MoreFrag extends Fragment {
             public void onClick(View v) {
 
                 String mobile_number = getActivity().getIntent().getStringExtra("mobile_number");
-                Intent intent = new Intent(getContext(), com.vikash.kuberio10.profile.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), com.vikash.kuberio10.profile.class);
                 intent.putExtra("mobile_number",mobile_number);
                 startActivity(intent);
             }

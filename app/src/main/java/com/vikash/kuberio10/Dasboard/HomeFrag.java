@@ -10,16 +10,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
-import com.vikash.kuberio10.Database.MyDbHandler;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.vikash.kuberio10.SQLite_Database.MyDbHandler;
 import com.vikash.kuberio10.R;
 import com.vikash.kuberio10.SlideShow.SliderAdapter;
-import com.vikash.kuberio10.SlideShow.SliderModal;
+import com.vikash.kuberio10.User_Info;
 import com.vikash.kuberio10.profile;
 
 import java.util.ArrayList;
@@ -33,12 +41,14 @@ import pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager;
  */
 public class HomeFrag extends Fragment {
 
+    FirebaseAuth auth;
+    FirebaseUser user;
 
 
     private AutoScrollViewPager viewPager;
     private LinearLayout dotsLL;
     SliderAdapter adapter;
-    private ArrayList<SliderModal> sliderModalArrayList;
+//    private ArrayList<SliderModal> sliderModalArrayList;
     private TextView[] dots;
     int size;
 
@@ -88,20 +98,49 @@ public class HomeFrag extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        TextView user_name;
+        TextView username;
+        username=view.findViewById(R.id.user_name);
 
-        user_name=view.findViewById(R.id.user_name);
-        /** to set username fetch data from database with mobile_number used*/
-        MyDbHandler db = new MyDbHandler(getContext());
-        String number = getActivity().getIntent().getStringExtra("mobile_number");
-        if(number!=null){
-            ArrayList<String> user_info = db.User_info(number);
+        auth=FirebaseAuth.getInstance();
+        user= auth.getCurrentUser();
 
-            String firstname = user_info.get(0);
-            String lastname = user_info.get(1);
+        if(user!=null){
+            String id = user.getUid();
+            DatabaseReference data = FirebaseDatabase.getInstance().getReference("Users_Data");
+            data.child(id).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-            user_name.setText(firstname+" "+lastname);
+                    User_Info user_info = snapshot.getValue(User_Info.class);
+                    username.setText(user_info.getUsername());
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext().getApplicationContext(), "We are getting some Error...Please wait!!", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), "Getting some error... Please wait", Toast.LENGTH_SHORT).show();
         }
+
+
+
+
+//        /** to set username fetch data from database with mobile_number used*/
+//        MyDbHandler db = new MyDbHandler(getContext());
+//        String number = getActivity().getIntent().getStringExtra("mobile_number");
+//        if(number!=null){
+//            ArrayList<String> user_info = db.User_info(number);
+//
+//            String firstname = user_info.get(0);
+//            String lastname = user_info.get(1);
+//
+//            user_name.setText(firstname+" "+lastname);
+//        }
+
 
 
         ImageView notification = view.findViewById(R.id.notification);

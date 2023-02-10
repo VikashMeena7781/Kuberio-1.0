@@ -21,6 +21,8 @@ public class SliderAdapter extends PagerAdapter {
     Context context;
     ArrayList<SliderModal> sliderModalArrayList;
 
+
+
     // creating constructor.
     public SliderAdapter(Context context, ArrayList<SliderModal> sliderModalArrayList) {
         this.context = context;

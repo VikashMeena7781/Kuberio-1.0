@@ -1,4 +1,4 @@
-package com.vikash.kuberio10.Database;
+package com.vikash.kuberio10.SQLite_Database;
 
 public class Data {
     private int id;

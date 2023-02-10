@@ -5,12 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.vikash.kuberio10.Courses_Dashboard.Courses;
-import com.vikash.kuberio10.Database.MyDbHandler;
-
-import java.util.ArrayList;
 
 public class Intermediate extends AppCompatActivity {
 
@@ -18,6 +18,7 @@ public class Intermediate extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intermediate);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Button course,explore_more;
         course = findViewById(R.id.course);
@@ -26,9 +27,7 @@ public class Intermediate extends AppCompatActivity {
         explore_more.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number=getIntent().getStringExtra("mobile_number");
                 Intent intent = new Intent(getApplicationContext(),Dashboard.class);
-                intent.putExtra("mobile_number",number);
                 startActivity(intent);
             }
         });
@@ -36,9 +35,9 @@ public class Intermediate extends AppCompatActivity {
         course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String number=getIntent().getStringExtra("mobile_number");
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Kuberio");
+                databaseReference.setValue("Kuberio, All Rigths Reserved");
                 Intent intent = new Intent(getApplicationContext(), Courses.class);
-                intent.putExtra("mobile_number",number);
                 startActivity(intent);
             }
         });

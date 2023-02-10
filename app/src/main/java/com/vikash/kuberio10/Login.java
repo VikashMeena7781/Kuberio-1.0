@@ -2,140 +2,107 @@ package com.vikash.kuberio10;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.vikash.kuberio10.Database.MyDbHandler;
-
-import java.util.concurrent.TimeUnit;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
-    Button signup , Continue;
-    EditText mobilenumber;
-    ProgressBar progressBar;
+    FirebaseAuth auth;
+
+    EditText Input_email,Input_password;
+    Button login;
+    TextView create_account,forget_password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        mobilenumber=findViewById(R.id.number_login);
-        signup=findViewById(R.id.signup_1);
-        Continue=findViewById(R.id.Continue);
-        progressBar=findViewById(R.id.probar2);
+        Input_email=findViewById(R.id.email);
+        Input_password=findViewById(R.id.password);
+        login=findViewById(R.id.login);
+        create_account=findViewById(R.id.create_account);
+        forget_password=findViewById(R.id.forget_password);
 
-        signup.setOnClickListener(new View.OnClickListener() {
+        auth=FirebaseAuth.getInstance();
+
+        create_account.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Signup.class));
-                finish();
             }
         });
-        requestPermissions();
-        Continue.setOnClickListener(new View.OnClickListener() {
+
+        forget_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!mobilenumber.getText().toString().trim().isEmpty()){
-                    if ((mobilenumber.getText().toString().trim()).length()==10)
-                    {
-                        /** Checking customer existance */
-                        MyDbHandler db = new MyDbHandler(getApplicationContext());
-                        String number = mobilenumber.getText().toString();
 
-                        if(number!=null){
-                            if(db.check_number(number)){
-                                progressBar.setVisibility(View.VISIBLE);
-                                Continue.setVisibility(View.INVISIBLE);
+            }
+        });
 
-                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                        "+91" + mobilenumber.getText().toString(),
-                                        60,
-                                        TimeUnit.SECONDS,
-                                        Login.this,
-                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                            @Override
-                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                Continue.setVisibility(View.VISIBLE);
-                                            }
-
-                                            @Override
-                                            public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                Continue.setVisibility(View.VISIBLE);
-                                                Toast.makeText(Login.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                Continue.setVisibility(View.VISIBLE);
-
-                                                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = pref.edit();
-                                                editor.putBoolean("flag",true);
-                                                editor.putString("number",mobilenumber.getText().toString());
-                                                editor.apply();
-
-                                                Intent intent=new Intent(Login.this,Otp_Verification.class);
-                                                intent.putExtra("mobile_number",mobilenumber.getText().toString());
-                                                intent.putExtra("backendotp",backendotp);
-                                                startActivity(intent);
-
-                                            }
-                                        }
-
-                                );
-
-
-                            }else{
-                                Toast.makeText(Login.this, "Please Sign Up first!", Toast.LENGTH_SHORT).show();
-                            }
-
-                        }
-
-
-                    }else {
-                        Toast.makeText(Login.this, "Please enter correct Number", Toast.LENGTH_SHORT).show();
-                    }
-
-                }else
-                {
-                    Toast.makeText(Login.this, "Enter Mobile number", Toast.LENGTH_SHORT).show();
-                }
-
-                        }
-
-
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Performlogin();
+            }
         });
 
 
 
     }
-    private void requestPermissions(){
-        if(ContextCompat.checkSelfPermission(Login.this, Manifest.permission.RECEIVE_SMS)!=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(Login.this,new String[]{
-                    Manifest.permission.RECEIVE_SMS
-            },100);
+
+    private void Performlogin() {
+        String email = Input_email.getText().toString();
+        String password = Input_password.getText().toString();
+
+        if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Input_email.setError("Enter correct email");
+        }else if(password.isEmpty() || password.length()<6) {
+            Input_password.setError("Enter Proper Password");
+        }else{
+
+            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(Login.this, "Login Successful..", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),Intermediate.class);
+                        startActivity(intent);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finish();
+                    }else{
+                        try {
+                            throw task.getException();
+                        }catch (FirebaseAuthInvalidUserException e){
+                            Toast.makeText(getApplicationContext(), "Please register first.", Toast.LENGTH_SHORT).show();
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                }
+            });
 
         }
+
     }
+
+
 }

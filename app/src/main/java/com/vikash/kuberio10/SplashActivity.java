@@ -9,29 +9,31 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.WindowManager;
 
-import com.vikash.kuberio10.Database.Data;
-import com.vikash.kuberio10.Database.MyDbHandler;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
 public class SplashActivity extends AppCompatActivity {
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        auth=FirebaseAuth.getInstance();
+        user= auth.getCurrentUser();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
-                Boolean Is_login = pref.getBoolean("flag",false);
-                String number = pref.getString("number",null);
-
-                if(Is_login){
+                if(user!=null){
                     Intent intent = new Intent(SplashActivity.this,Intermediate.class);
-                    intent.putExtra("mobile_number",number);
                     startActivity(intent);
                     finish();
                 }else{
@@ -42,18 +44,18 @@ public class SplashActivity extends AppCompatActivity {
             }
         },5000);
 
-        MyDbHandler db = new MyDbHandler(getApplicationContext());
-        List<Data> allcontact = db.getAllContacts();
-
-        for(Data contact: allcontact){
-
-            Log.d("dbharry", "\nId: " + contact.getId() + "\n" +
-                    "FirstName: " + contact.getFirstname() + "\n"+
-                    "LastName: " + contact.getLastname() + "\n"+
-                    "Phone Number: " + contact.getPhoneNumber() + "\n" +
-                    "Email Id: " + contact.getEmailid() + "\n" );
-        }
-        Log.d("dbharry","Number of contacts in Database "+db.getCount());
+//        MyDbHandler db = new MyDbHandler(getApplicationContext());
+//        List<Data> allcontact = db.getAllContacts();
+//
+//        for(Data contact: allcontact){
+//
+//            Log.d("dbharry", "\nId: " + contact.getId() + "\n" +
+//                    "FirstName: " + contact.getFirstname() + "\n"+
+//                    "LastName: " + contact.getLastname() + "\n"+
+//                    "Phone Number: " + contact.getPhoneNumber() + "\n" +
+//                    "Email Id: " + contact.getEmailid() + "\n" );
+//        }
+//        Log.d("dbharry","Number of contacts in Database "+db.getCount());
 ////
 
     }

@@ -13,162 +13,138 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
-import com.vikash.kuberio10.Database.Data;
-import com.vikash.kuberio10.Database.MyDbHandler;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class Signup extends AppCompatActivity {
+    FirebaseAuth auth;
+    FirebaseUser user;
+    EditText Input_username,Input_number,Input_email,Input_password,Input_confirmpassword;
+    Button register;
+    TextView already_account;
 
-    EditText number,firstname,lastname;
-    Button get_otp;
-    ProgressBar progressBar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-        number=findViewById(R.id.number);
-        get_otp=findViewById(R.id.getotp);
-        progressBar=findViewById(R.id.probar1);
-        firstname=findViewById(R.id.firstname);
-        lastname=findViewById(R.id.lastname);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        requestPermissions();
+        Input_username=findViewById(R.id.user_name);
+        Input_number=findViewById(R.id.number);
+        Input_email=findViewById(R.id.email);
+        Input_password=findViewById(R.id.password);
+        Input_confirmpassword=findViewById(R.id.confirm_password);
+        register=findViewById(R.id.register);
+        already_account=findViewById(R.id.already_account);
 
-        get_otp.setOnClickListener(new View.OnClickListener() {
+        auth=FirebaseAuth.getInstance();
+
+
+        register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!number.getText().toString().trim().isEmpty()){
-                    if ((number.getText().toString().trim()).length()==10)
-                    {
-                        if(!(firstname.getText().toString().length()==0) && !(lastname.getText().toString().length()==0)){
-                            MyDbHandler db = new MyDbHandler(getApplicationContext());
-                            if(db.check_number(number.getText().toString())){
-                                Toast.makeText(Signup.this, "You'r already Signed Up with this Number", Toast.LENGTH_SHORT).show();
-                            }else{
-                                progressBar.setVisibility(View.VISIBLE);
-                                get_otp.setVisibility(View.INVISIBLE);
-
-                                PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                                        "+91" + number.getText().toString(),
-                                        60,
-                                        TimeUnit.SECONDS,
-                                        Signup.this,
-                                        new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-                                            @Override
-                                            public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                get_otp.setVisibility(View.VISIBLE);
-                                            }
-
-                                            @Override
-                                            public void onVerificationFailed(@NonNull FirebaseException e) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                get_otp.setVisibility(View.VISIBLE);
-                                                Toast.makeText(Signup.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                                            }
-
-                                            @Override
-                                            public void onCodeSent(@NonNull String backendotp, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-                                                progressBar.setVisibility(View.GONE);
-                                                get_otp.setVisibility(View.VISIBLE);
-
-                                                SharedPreferences pref = getSharedPreferences("user_data",MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = pref.edit();
-                                                editor.putBoolean("flag",true);
-                                                editor.putString("number",number.getText().toString());
-                                                editor.apply();
-
-
-
-                                                /** Adding customers to data */
-                                                /** To set user_name... fetch it's info from database... sending data will not work */
-
-
-                                                Intent intent=new Intent(Signup.this,Otp_Verification.class);
-
-                                                intent.putExtra("mobile_number",number.getText().toString());
-                                                intent.putExtra("backendotp",backendotp);
-//                                            intent.putExtra("firstName",firstname.getText().toString());
-//                                            intent.putExtra("lastName",lastname.getText().toString());
-                                                startActivity(intent);
-
-                                                MyDbHandler db = new MyDbHandler(Signup.this);
-                                                Data data = new Data();
-                                                data.setFirstname(firstname.getText().toString());
-                                                data.setLastname(lastname.getText().toString());
-                                                data.setPhoneNumber(number.getText().toString());
-                                                db.addContact(data);
-
-
-                                                /** Sending Data to profile */
-                                                // Can't send like this.. one time two call for startActvity();
-//                                            Intent intent_profile = new Intent(getApplicationContext(),profile.class);
-//                                            intent.putExtra("firstName",firstname.getText().toString());
-//                                            intent.putExtra("lastName",lastname.getText().toString());
-//                                            intent_profile.putExtra("mobile_number",number.getText().toString());
-//                                            startActivity(intent_profile);
-
-                                                /** Sending data to dashboard */
-//                                            Intent intent_dashboard = new Intent(getApplicationContext(),Dashboard.class);
-//                                            intent_dashboard.putExtra("firstName",firstname.getText().toString());
-//                                            intent_dashboard.putExtra("lastName",lastname.getText().toString());
-//                                            startActivity(intent_dashboard);
-
-
-
-                                            }
-
-                                        }
-
-                                );
-                            }
-
-
-                        }else{
-                            Toast.makeText(Signup.this, "Please fill all required field", Toast.LENGTH_SHORT).show();
-
-                        }
-
-
-
-                    }else {
-                        Toast.makeText(Signup.this, "Please enter correct Number", Toast.LENGTH_SHORT).show();
-                    }
-
-                }else
-                {
-                    Toast.makeText(Signup.this, "Enter Mobile number", Toast.LENGTH_SHORT).show();
-                }
-
+                Perform_SignUp();
             }
-
         });
 
-
-
     }
-    private void requestPermissions(){
-        if(ContextCompat.checkSelfPermission(Signup.this, Manifest.permission.RECEIVE_SMS)!=
-                PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(Signup.this,new String[]{
-                    Manifest.permission.RECEIVE_SMS
-            },100);
+
+    private void Perform_SignUp() {
+        String username = Input_username.getText().toString();
+        String number = Input_number.getText().toString();
+        String password = Input_password.getText().toString();
+        String confirm_password = Input_confirmpassword.getText().toString();
+        String email = Input_email.getText().toString();
+
+        if(username.isEmpty()){
+            Input_username.setError("Fill Username");
+        }else if(!Patterns.PHONE.matcher(number).matches()){
+            Input_number.setError("Enter valid phone number");
+        }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            Input_email.setError("Enter valid email");
+        }else if(password.isEmpty() || password.length()<6){
+            Input_password.setError("Password length must be at least 6");
+        }else if(!confirm_password.equals(password)){
+            Input_confirmpassword.setError("Password not matched");
+        }else{
+
+            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users_Data");
+
+                        User_Info user_info = new User_Info();
+                        user_info.setEmail(email);
+                        user_info.setUsername(username);
+                        user_info.setPassword(password);
+                        user_info.setNumber(number);
+
+                        user=auth.getCurrentUser();
+                        if(user!=null){
+                            String id = user.getUid();
+                            databaseReference.child(id).setValue(user_info).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(task.isSuccessful()){
+                                        Toast.makeText(Signup.this, "Registration Successful", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(getApplicationContext(),Intermediate.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    }else{
+                                        Toast.makeText(Signup.this, "Registration Failed...", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
+                        }else{
+                            Toast.makeText(Signup.this, "Registration Failed...", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else{
+                        try {
+                            throw task.getException();
+                        }catch (FirebaseAuthInvalidCredentialsException e){
+                            Input_email.setError("Your email is invalid or already in use. Kindly re-enter.");
+                            Input_email.requestFocus();
+                        }catch (FirebaseAuthUserCollisionException e){
+                            Input_email.setError("User is already registered with this email. Use another email");
+                            Input_email.requestFocus();
+                        }catch (Exception e){
+                            Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                }
+            });
 
         }
+
     }
 }

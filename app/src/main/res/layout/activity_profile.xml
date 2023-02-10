@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="#252420"
     android:layout_height="match_parent"
     tools:context=".profile">
 
@@ -17,11 +18,13 @@
             android:layout_height="100dp"
             android:layout_marginTop="30dp"
             android:src="@drawable/client_profile"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Name"
+            android:text="Username"
             android:layout_marginTop="20dp"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:layout_marginLeft="30dp"
             android:fontFamily="sans-serif-condensed-medium"/>
@@ -29,15 +32,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:hint="Vikash"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:text="Vikash"
             android:textSize="20sp"
             android:textStyle="bold"
             android:fontFamily="sans-serif-condensed"
-            android:id="@+id/firstname"/>
+            android:id="@+id/username"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Name"
+            android:text="Email Id"
+            android:textColor="@color/white"
             android:layout_marginTop="30dp"
             android:textSize="18sp"
             android:layout_marginLeft="30dp"
@@ -46,11 +52,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:hint="Meena"
+            android:textColor="@color/white"
+            android:text="Meena"
             android:textStyle="bold"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
-            android:id="@+id/lastname"/>
+            android:id="@+id/email"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,6 +65,7 @@
             android:text="Phone Number"
             android:layout_marginTop="30dp"
             android:textSize="18sp"
+            android:textColor="@color/white"
             android:layout_marginLeft="30dp"
             android:fontFamily="sans-serif-condensed-medium"/>
 
@@ -65,8 +73,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:hint="(+91)6378077747"
+            android:text="(+91)6378077747"
             android:textStyle="bold"
+            android:textColor="@color/white"
             android:textSize="20sp"
             android:fontFamily="sans-serif-condensed"
             android:id="@+id/phone_number"/>
@@ -74,10 +83,11 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete Account"
+            android:text="delete account"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
-            android:backgroundTint="@color/teal_700"
+            android:textColor="@color/white"
+            android:background="#6d7668"
             android:id="@+id/delete_account"/>
 
     </LinearLayout>

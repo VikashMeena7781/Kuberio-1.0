@@ -1,4 +1,4 @@
-package com.vikash.kuberio10.Database;
+package com.vikash.kuberio10.SQLite_Database;
 
 public class Params {
     public static final int DB_VERSION = 1;

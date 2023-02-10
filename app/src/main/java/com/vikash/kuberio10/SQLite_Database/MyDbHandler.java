@@ -1,4 +1,4 @@
-package com.vikash.kuberio10.Database;
+package com.vikash.kuberio10.SQLite_Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,7 +45,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
 
     }
     public List<Data> getAllContacts() {
-        List<Data> dataList = new ArrayList<>();
+        List<Data> dataList = new ArrayList<Data>();
         SQLiteDatabase db = this.getReadableDatabase();
 
         //Generate the query to read data from the database
@@ -60,6 +60,7 @@ public class MyDbHandler extends SQLiteOpenHelper {
                 data.setLastname(cursor.getString(2));
                 data.setPhoneNumber(cursor.getString(3));
                 data.setEmailid(cursor.getString(4));
+
                 dataList.add(data);
 
             } while (cursor.moveToNext());

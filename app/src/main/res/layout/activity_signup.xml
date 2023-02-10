@@ -4,89 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
+    android:background="#252420"
     android:layout_height="match_parent"
     tools:context=".Signup">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical">
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mobile Number"
-            android:layout_marginLeft="20dp"
+            android:text="Register"
+            android:textColor="@color/white"
+            android:textSize="40sp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="serif"
+            android:textStyle="bold"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColorHint="@color/white"
+            android:hint="Username"
+            android:paddingBottom="13dp"
+            android:textColor="@color/white"
+            android:paddingTop="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_marginTop="20dp"
-            android:textStyle="bold"
-            android:textColor="#FB8C00"
-            android:textSize="20sp"/>
-        <TextView
-            android:layout_width="match_parent"
+            android:inputType="textPersonName"
+            android:background="@drawable/input_bg"
+            android:ems="15"
+            android:id="@+id/user_name"/>
+
+        <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"
-            android:text="Enter your mobile number to register"/>
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:textColorHint="@color/white"
+            android:textColor="@color/white"
+            android:hint="Mobile Number"
+            android:background="@drawable/input_bg"
+            android:ems="15"
+            android:id="@+id/number"
+            android:inputType="number"/>
+
+        <EditText
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:hint="Enter Your email"
+            android:textColorHint="@color/white"
+            android:paddingBottom="13dp"
+            android:textColor="@color/white"
+            android:paddingTop="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:inputType="textEmailAddress"
+            android:background="@drawable/input_bg"
+            android:layout_marginTop="10dp"
+            android:ems="15"
+            android:id="@+id/email"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:hint="Enter Password"
+            android:textColorHint="@color/white"
+            android:background="@drawable/input_bg"
+            android:ems="15"
+            android:id="@+id/password"
+            />
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="13dp"
+            android:paddingTop="13dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:hint="Confirm Password"
+            android:background="@drawable/input_bg"
+            android:ems="15"
+            android:id="@+id/confirm_password"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="register"
+            android:background="@drawable/input_bg"
+            android:textColor="@color/white"
             android:layout_marginTop="30dp"
-            android:layout_marginLeft="20dp">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Mobile Number"
-                android:layout_marginTop="20dp"
-                android:inputType="numberDecimal"
-                android:id="@+id/number"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="First Name"
-                android:id="@+id/firstname"
-                android:inputType="textPersonName"/>
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:hint="Last Name"
-                android:id="@+id/lastname"
-                android:inputType="textPersonName"/>
-            <!--        <EditText-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_marginTop="20dp"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:hint="Invite Code(Optional)"-->
-            <!--            android:inputType="textWebPassword"/>-->
+            android:ems="19"
+            android:id="@+id/register"/>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
-                >
-                <Button
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Send OTP"
-                    android:id="@+id/getotp"
-                    android:layout_margin="30dp"
-                    android:background="@drawable/backgroundbutton"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"/>
-
-                <ProgressBar
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_gravity="center"
-                    android:visibility="gone"
-                    android:id="@+id/probar1"/>
-
-
-            </FrameLayout>
-
-        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already have Account?"
+            android:textColor="@color/white"
+            android:id="@+id/already_account"
+            android:gravity="center"
+            android:ems="15"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"/>
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/purple_200"
+    android:background="#252420"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vikash.kuberio10.Dasboard.TrackerFrag">
 
@@ -12,6 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -19,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#D81B4229"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -41,15 +42,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Consolidate Mfs and Stocks"
-                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="5dp"
                             android:text="One place to moniter all investments"
-                            android:textColor="@color/black" />
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -59,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#D81B4229"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -68,7 +71,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="75dp"
+                        android:layout_width="55dp"
                         android:layout_height="75dp"
                         android:src="@drawable/analyse_insights" />
 
@@ -81,15 +84,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Analysis and Insights"
-                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:layout_marginTop="10dp"
                             android:text="Get expert insights of investments"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -99,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="#D81B4229"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -108,7 +113,7 @@
                     android:orientation="horizontal">
 
                     <ImageView
-                        android:layout_width="75dp"
+                        android:layout_width="55dp"
                         android:layout_height="75dp"
                         android:src="@drawable/add_family_investments" />
 
@@ -121,15 +126,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Add family Investments"
-                            android:textColor="@color/black"
+                            android:layout_marginLeft="5dp"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:layout_marginLeft="5dp"
                             android:text="Track your family's investments"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -138,6 +145,7 @@
                 android:layout_height="wrap_content"
                 android:text="How it works ?"
                 android:layout_marginLeft="50dp"
+                android:textColor="@color/white"
                 android:textSize="25sp"
                 android:layout_marginTop="20dp"/>
             <pl.droidsonroids.gif.GifImageView
@@ -151,7 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="#27A8B8"
+                android:backgroundTint="#D81B4229"
                 app:cardCornerRadius="10dp">
 
                 <LinearLayout
@@ -167,16 +175,18 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:text="Your synced data is safe and   "
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
+                            android:layout_marginLeft="5dp"
                             android:text="secure with us"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="20sp" />
 
                         <LinearLayout
@@ -209,7 +219,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/teal_700"
+                android:background="#D81B4229"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical">
                 <LinearLayout
@@ -228,14 +238,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Advantages"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="30sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="of Tracking"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="30sp" />
                     </LinearLayout>
 
@@ -291,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="FAQs"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="30sp" />
 
                 <ExpandableListView
@@ -302,6 +312,5 @@
             </LinearLayout>
 
         </LinearLayout>
-
 
 </ScrollView>
