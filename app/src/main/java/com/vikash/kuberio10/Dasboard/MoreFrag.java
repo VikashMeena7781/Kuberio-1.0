@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.vikash.kuberio10.MainActivity;
 import com.vikash.kuberio10.R;
 import com.vikash.kuberio10.profile;
@@ -22,6 +24,8 @@ import com.vikash.kuberio10.profile;
  * create an instance of this fragment.
  */
 public class MoreFrag extends Fragment {
+    FirebaseAuth auth;
+    FirebaseUser user;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,9 +88,7 @@ public class MoreFrag extends Fragment {
             @Override
             public void onClick(View v) {
 
-                String mobile_number = getActivity().getIntent().getStringExtra("mobile_number");
                 Intent intent = new Intent(getActivity().getApplicationContext(), com.vikash.kuberio10.profile.class);
-                intent.putExtra("mobile_number",mobile_number);
                 startActivity(intent);
             }
         });
@@ -137,14 +139,12 @@ public class MoreFrag extends Fragment {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
                 startActivity(intent);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().finish();
-
-                SharedPreferences pref = getContext().getSharedPreferences("login", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putBoolean("flag",false);
-                editor.apply();
+                auth=FirebaseAuth.getInstance();
+                auth.signOut();
             }
         });
 

@@ -102,7 +102,6 @@ public class Signup extends AppCompatActivity {
                         User_Info user_info = new User_Info();
                         user_info.setEmail(email);
                         user_info.setUsername(username);
-                        user_info.setPassword(password);
                         user_info.setNumber(number);
 
                         user=auth.getCurrentUser();

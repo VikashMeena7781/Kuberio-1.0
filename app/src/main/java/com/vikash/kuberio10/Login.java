@@ -24,7 +24,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
     FirebaseAuth auth;
-
     EditText Input_email,Input_password;
     Button login;
     TextView create_account,forget_password;
@@ -53,6 +52,24 @@ public class Login extends AppCompatActivity {
         forget_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String email = Input_email.getText().toString();
+                if(email.isEmpty()){
+                    Input_email.setError("Enter your registered email to reset password");
+                }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                    Input_email.setError("Please enter valid email");
+                }else{
+                    auth.sendPasswordResetEmail(email)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                Toast.makeText(Login.this, "Please check your email", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Login.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
 
             }
         });
@@ -92,7 +109,10 @@ public class Login extends AppCompatActivity {
                             throw task.getException();
                         }catch (FirebaseAuthInvalidUserException e){
                             Toast.makeText(getApplicationContext(), "Please register first.", Toast.LENGTH_SHORT).show();
-                        }catch (Exception e){
+                        }catch (FirebaseAuthInvalidCredentialsException e){
+                            Toast.makeText(Login.this, "Password entered is wrong!!", Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e){
                             Toast.makeText(getApplicationContext(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
