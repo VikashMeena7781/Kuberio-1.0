@@ -6,7 +6,6 @@
     android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.vikash.kuberio10.Dasboard.HomeFrag">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +18,8 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
@@ -90,12 +90,8 @@
                             android:layout_width="wrap_content"
                             android:textColor="@color/white"
                             android:layout_height="wrap_content"
-                            android:text="Track your external Mutual Fund"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:text="Investments"/>
+                            android:text="Track your external Mutual Fund\nInvestments"/>
+
                     </LinearLayout>
                     <ImageView
                         android:layout_width="30dp"
@@ -146,7 +142,8 @@
                         android:layout_marginLeft="20dp"
                         android:orientation="vertical">
                         <androidx.appcompat.widget.AppCompatButton
-                            android:layout_width="120dp"
+                            android:layout_width="wrap_content"
+                            android:padding="5sp"
                             android:background="#6d7668"
                             android:layout_marginTop="20dp"
                             android:textColor="@color/colorPrimaryDark"
@@ -158,19 +155,9 @@
                             android:textColor="@color/white"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
-                            android:text="Portfolio of best"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="Performing ELLS"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="funds for tax benefits"/>
+                            android:text="Portfolio of best\nPerforming ELLS\nfunds for tax benefits"/>
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_marginTop="30dp"
@@ -259,19 +246,9 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            android:text="equity portfolio to"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="achieve desired "/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="asset allocation"/>
+                            android:text="equity portfolio to\nachieve desired\nasset allocation"/>
+
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_marginTop="30dp"
@@ -359,24 +336,16 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:textSize="20sp"
-                            android:text="portfolios of mutual"/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="funds to meet your "/>
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:textSize="20sp"
-                            android:text="financial goals"/>
+                            android:text="portfolios of mutual\nfunds to meet your\nfinancial goals"/>
+
+
                         <LinearLayout
+
                             android:layout_width="match_parent"
                             android:layout_marginTop="30dp"
                             android:layout_marginBottom="15dp"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -491,8 +460,6 @@
                         android:layout_weight="1"
                         android:gravity="center_horizontal"
                         android:orientation="horizontal" />
-
-
                 </LinearLayout>
 
             </LinearLayout>

@@ -42,22 +42,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:fontFamily="serif"
-                android:text="Let's build your"
+                android:text="Let's build your\nwealth journey,\ntogether"
                 android:textSize="40sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:fontFamily="serif"
-                android:text="wealth journey,"
-                android:textSize="40sp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:fontFamily="serif"
-                android:text="together"
-                android:textSize="40sp"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -68,7 +55,6 @@
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:background="#6d7668"
                 android:textColor="@color/white"
                 android:text="sign up"

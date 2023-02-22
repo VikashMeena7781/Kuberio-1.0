@@ -41,18 +41,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Consolidate Mfs and Stocks"
+                            android:text="Consolidate Mfs and Stocks\nOne place to moniter all investments"
                             android:layout_marginLeft="5dp"
                             android:textColor="@color/white"
                             android:textSize="20sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="One place to moniter all investments"
-                            android:layout_marginLeft="5dp"
-                            android:textColor="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -237,16 +230,11 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Advantages"
+                            android:text="Advantages\nof Tracking"
                             android:textColor="@color/white"
                             android:textSize="30sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="of Tracking"
-                            android:textColor="@color/white"
-                            android:textSize="30sp" />
+
                     </LinearLayout>
 
                     <ImageView

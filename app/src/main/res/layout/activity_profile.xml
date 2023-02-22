@@ -86,6 +86,7 @@
             android:text="delete account"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="40dp"
+            android:padding="5sp"
             android:textColor="@color/white"
             android:background="#6d7668"
             android:id="@+id/delete_account"/>
