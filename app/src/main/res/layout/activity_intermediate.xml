@@ -51,16 +51,18 @@
             android:gravity="center_horizontal"
             android:layout_height="match_parent">
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="120dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5sp"
                 android:layout_marginTop="80dp"
                 android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/course"
                 android:background="#6d7668"
                 android:text="Go to Courses"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="140dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="5sp"
                 android:layout_marginTop="80dp"
                 android:id="@+id/explore_more"
                 android:textColor="@color/colorPrimaryDark"

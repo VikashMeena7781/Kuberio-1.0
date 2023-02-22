@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:background="@color/purple_200"
     android:orientation="vertical"
-    android:layout_height="140dp">
+    android:layout_height="wrap_content">
 
     <!--text view for displaying
         our heading-->
     <TextView
         android:id="@+id/idTVtitle"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:textColor="@color/black"
@@ -37,6 +37,7 @@
         android:layout_below="@+id/idTVtitle"
         android:textColor="@color/black"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
         android:padding="10dp"
         android:text="Consolidate and get a health report of your entire family's Mutul Fund portfolio."
         android:textAlignment="center"
