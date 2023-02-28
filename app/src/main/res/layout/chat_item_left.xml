@@ -9,6 +9,7 @@
         android:backgroundTint="#274714"
         android:layout_marginLeft="2dp"
         android:id="@+id/relative_layout"
+        android:layout_marginBottom="2dp"
         android:layout_height="wrap_content">
 
         <TextView
