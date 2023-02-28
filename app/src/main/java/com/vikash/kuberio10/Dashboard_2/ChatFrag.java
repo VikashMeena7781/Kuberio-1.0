@@ -37,7 +37,7 @@ public class ChatFrag extends Fragment {
     FirebaseUser user;
     FirebaseAuth auth;
     DatabaseReference reference;
-    TextView profile_image;
+    //TextView profile_image;
     private ViewPagerAdapter viewPagerAdapter;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -80,7 +80,7 @@ public class ChatFrag extends Fragment {
         View view = inflater.inflate(R.layout.fragment_wealthy, container, false);
 
         TextView username = view.findViewById(R.id.username);
-        profile_image=view.findViewById(R.id.profile_image);
+        //profile_image=view.findViewById(R.id.profile_image);
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
 
@@ -97,7 +97,7 @@ public class ChatFrag extends Fragment {
                 username.setText(user_info.getUsername());
 //                if(user_info.getImageUrl().equals("default")){
 //                profile_image.setImageResource(R.mipmap.ic_launcher);
-                profile_image.setText(String.valueOf(user_info.getUsername().charAt(0)));
+ //               profile_image.setText(String.valueOf(user_info.getUsername().charAt(0)));
 //                }else{
 //                    Glide.with(getContext()).load(user_info.getImageUrl()).into(profile_image);
 //                }
