@@ -1,68 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#252420"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.vikash.kuberio10.Dasboard.WealthyFrag">
-    <LinearLayout
+    tools:context=".Dashboard">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:textColor="@color/colorPrimaryDark"
-            android:fontFamily="serif"
-            android:text="KUBERIO"
-            android:textSize="25sp"/>
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:id="@+id/coin_stack"
-            app:lottie_rawRes="@raw/coin_stack"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.338"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"/>
-
+        android:background="#D81B4229"
+        android:layout_height="50dp">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/ring"/>
+        <TextView
+            android:id="@+id/profile_image"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="7dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="V"
+            android:textSize="25dp"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/profile_image"
+            android:text="Vikash Meena"
+            android:textSize="25sp"
+            android:textColor="@color/white"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="40dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:textColor="@color/white"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:textStyle="bold"
-                android:text="Looks like\nyou haven't started\nany investment"
-                android:fontFamily="serif-monospace"
-                android:textSize="30sp"/>
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:id="@+id/start_investing"
-                android:layout_gravity="center"
-                android:background="#6d7668"
-                android:text="Start Investing"
-                android:textColor="@color/colorPrimaryDark"/>
+            android:id="@+id/username"/>
+    </RelativeLayout>
 
-        </LinearLayout>
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tab_layout"
+        android:background="#873795"
+        app:tabSelectedTextColor="@color/purple_700"
+        app:tabTextColor="@color/white"
+        app:tabIndicatorColor="#CDDC39"
+        tools:ignore="MissingConstraints"/>
 
-    </LinearLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:id="@+id/view_pager"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
 
-</ScrollView>
+</LinearLayout>

@@ -19,6 +19,7 @@
         android:id="@+id/bnView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#804C88"
         android:layout_alignParentBottom="true"
         app:menu="@menu/nav_items" />
 

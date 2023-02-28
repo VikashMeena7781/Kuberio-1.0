@@ -35,8 +35,8 @@ public class Intermediate extends AppCompatActivity {
         course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Kuberio");
-                databaseReference.setValue("Kuberio, All Rigths Reserved");
+//                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Kuberio");
+//                databaseReference.setValue("Kuberio, All Rigths Reserved");
                 Intent intent = new Intent(getApplicationContext(), Courses.class);
                 startActivity(intent);
             }

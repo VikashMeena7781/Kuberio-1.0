@@ -1,4 +1,4 @@
-package com.vikash.kuberio10.Dasboard;
+package com.vikash.kuberio10.Dashboard_2;
 
 import android.os.Bundle;
 import android.text.Html;
@@ -6,16 +6,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.vikash.kuberio10.R;
 import com.vikash.kuberio10.SlideShow.ExpandableListViewAdapter;
 import com.vikash.kuberio10.SlideShow.SliderAdapter;
-import com.vikash.kuberio10.SlideShow.SliderModal;
+import com.vikash.kuberio10.User_Info;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,31 +38,37 @@ import pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TrackerFrag#newInstance} factory method to
+ * Use the {@link HomeFrag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TrackerFrag extends Fragment {
+public class HomeFrag extends Fragment {
 
     ExpandableListViewAdapter listViewAdapter;
     ExpandableListView expandableListView;
     List<String> answer_list;
     HashMap<String, List<String>> question_list;
+    FirebaseAuth auth;
+    FirebaseUser user;
+
 
     private AutoScrollViewPager viewPager;
     private LinearLayout dotsLL;
     SliderAdapter adapter;
-    private ArrayList<SliderModal> sliderModalArrayList;
+//    private ArrayList<SliderModal> sliderModalArrayList;
     private TextView[] dots;
     int size;
 
 
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public TrackerFrag() {
+    public HomeFrag() {
         // Required empty public constructor
     }
 
@@ -59,11 +78,11 @@ public class TrackerFrag extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackerFrag.
+     * @return A new instance of fragment HomeFrag.
      */
     // TODO: Rename and change types and number of parameters
-    public static TrackerFrag newInstance(String param1, String param2) {
-        TrackerFrag fragment = new TrackerFrag();
+    public static HomeFrag newInstance(String param1, String param2) {
+        HomeFrag fragment = new HomeFrag();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -77,8 +96,6 @@ public class TrackerFrag extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
-
         }
     }
 
@@ -86,7 +103,8 @@ public class TrackerFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tracker, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        TextView username;
 
         expandableListView = view.findViewById(R.id.elistView);
 
@@ -94,8 +112,103 @@ public class TrackerFrag extends Fragment {
 
         listViewAdapter = new ExpandableListViewAdapter(getContext(), answer_list, question_list);
         expandableListView.setAdapter(listViewAdapter);
+        username=view.findViewById(R.id.user_name);
 
-        // initializing all our views.
+        auth=FirebaseAuth.getInstance();
+        user= auth.getCurrentUser();
+
+        if(user!=null){
+            String id = user.getUid();
+            DatabaseReference data = FirebaseDatabase.getInstance().getReference("Users_Data");
+            data.child(id).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    User_Info user_info = snapshot.getValue(User_Info.class);
+                    assert user_info!=null;
+                    username.setText(user_info.getUsername());
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext().getApplicationContext(), "We are getting some Error...Please wait!!", Toast.LENGTH_SHORT).show();
+
+                }
+            });
+        }else{
+            Toast.makeText(getActivity().getApplicationContext(), "Getting some error... Please wait", Toast.LENGTH_SHORT).show();
+        }
+
+
+
+
+//        /** to set username fetch data from database with mobile_number used*/
+//        MyDbHandler db = new MyDbHandler(getContext());
+//        String number = getActivity().getIntent().getStringExtra("mobile_number");
+//        if(number!=null){
+//            ArrayList<String> user_info = db.User_info(number);
+//
+//            String firstname = user_info.get(0);
+//            String lastname = user_info.get(1);
+//
+//            user_name.setText(firstname+" "+lastname);
+//        }
+
+
+
+        ImageView notification = view.findViewById(R.id.notification);
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "You have no Notification yet!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        /**Click Listener on Card View */
+        CardView card_1 = view.findViewById(R.id.card_1);
+        CardView card_2 = view.findViewById(R.id.card_2);
+        CardView card_3 = view.findViewById(R.id.card_3);
+        CardView card_4 = view.findViewById(R.id.track);
+
+        card_4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new TrackerFrag();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.replace(R.id.Conatiner,fragment);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+
+        card_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        card_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        card_3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        /**Bug in Custom Slider Code*/
+
 //        viewPager = view.findViewById(R.id.idViewPager);
 //        dotsLL = view.findViewById(R.id.idLLDots);
 //
@@ -130,9 +243,7 @@ public class TrackerFrag extends Fragment {
 //        // page change listener method.
 //        viewPager.addOnPageChangeListener(viewListener);
 
-
         return view;
-
     }
 
     private void showList() {
@@ -212,12 +323,9 @@ public class TrackerFrag extends Fragment {
             dots[pos].setTextColor(getResources().getColor(R.color.purple_200));
         }
     }
-
-    // creating a method for view pager for on page change listener.
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
 
         @Override

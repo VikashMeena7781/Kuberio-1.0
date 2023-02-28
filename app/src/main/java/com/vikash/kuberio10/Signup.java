@@ -47,7 +47,6 @@ public class Signup extends AppCompatActivity {
     TextView already_account;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,10 +102,13 @@ public class Signup extends AppCompatActivity {
                         user_info.setEmail(email);
                         user_info.setUsername(username);
                         user_info.setNumber(number);
+                        user_info.setStatus("offline");
+                        user_info.setSearch(username.toLowerCase());
 
                         user=auth.getCurrentUser();
                         if(user!=null){
                             String id = user.getUid();
+                            user_info.setId(id);
                             databaseReference.child(id).setValue(user_info).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {

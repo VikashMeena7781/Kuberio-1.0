@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="#252420"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.vikash.kuberio10.Dasboard.MoreFrag">
+    tools:context="com.vikash.kuberio10.Dashboard_2.MoreFrag">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
