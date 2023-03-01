@@ -121,6 +121,7 @@ public class ChatFrag extends Fragment {
                 int unread=0;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     Chat chat = dataSnapshot.getValue(Chat.class);
+                    assert chat != null;
                     if(chat.getReceiver().equals(user.getUid()) && !chat.isIsseen()){
                         unread++;
                     }
