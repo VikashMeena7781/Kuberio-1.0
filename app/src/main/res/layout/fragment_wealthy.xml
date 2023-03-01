@@ -16,16 +16,28 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
-            android:background="@drawable/ring"/>
+            android:background="@drawable/main_profile"
+        />
+<!--        <TextView-->
+<!--            android:id="@+id/profile_image"-->
+<!--            android:layout_marginLeft="25dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_width="50dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:text="V"-->
+<!--            android:textSize="25dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            />-->
         <TextView
             android:id="@+id/profile_image"
             android:layout_marginLeft="22dp"
-            android:layout_marginTop="7dp"
+            android:layout_marginTop="5dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:text="V"
+            android:fontFamily="sans-serif-condensed"
+            android:textStyle="bold"
             android:textSize="25dp"
-            android:textColor="@color/white"
+            android:textColor="#151515"
             />
         <TextView
             android:layout_width="match_parent"
