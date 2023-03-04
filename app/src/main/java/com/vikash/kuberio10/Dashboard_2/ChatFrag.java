@@ -95,12 +95,7 @@ public class ChatFrag extends Fragment {
                 User_Info user_info = snapshot.getValue(User_Info.class);
                 assert user_info!=null;
                 username.setText(user_info.getUsername());
-//                if(user_info.getImageUrl().equals("default")){
-//                profile_image.setImageResource(R.mipmap.ic_launcher);
- //               profile_image.setText(String.valueOf(user_info.getUsername().charAt(0)));
-//                }else{
-//                    Glide.with(getContext()).load(user_info.getImageUrl()).into(profile_image);
-//                }
+
             }
 
             @Override
@@ -113,7 +108,6 @@ public class ChatFrag extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                viewPagerAdapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
                 if(isAdded()){
                     viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
                 }
@@ -133,7 +127,6 @@ public class ChatFrag extends Fragment {
 
                 }
                 viewPagerAdapter.addFragment(new UserFragment(),"Users");
-//                viewPagerAdapter.addFragment(new ProfileFragment(),"Profile");
 
                 viewPager.setAdapter(viewPagerAdapter);
                 tabLayout.setupWithViewPager(viewPager);
@@ -176,43 +169,9 @@ public class ChatFrag extends Fragment {
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.view_pager);
         FragmentPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(adapter);
-//        tabLayout_1.setupWithViewPager(viewPager);
     }
 
 
-//    public class ViewPagerAdapter extends FragmentPagerAdapter {
-//        private ArrayList<Fragment> fragments;
-//        private ArrayList<String> titles;
-//
-//        ViewPagerAdapter(FragmentManager fm){
-//            super(fm);
-//            this.fragments=new ArrayList<>();
-//            this.titles=new ArrayList<>();
-//        }
-//
-//
-//
-//        @NonNull
-//        @Override
-//        public Fragment getItem(int position) {
-//            return fragments.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return fragments.size();
-//        }
-//        public void addFragment(Fragment fragment , String title){
-//            fragments.add(fragment);
-//            titles.add(title);
-//        }
-//
-//        @Nullable
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return titles.get(position);
-//        }
-//    }
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {
         private List<Fragment> mFragmentList = new ArrayList<>();
@@ -253,9 +212,6 @@ public class ChatFrag extends Fragment {
         public List<String> getUsersList() {
             return mUsersList;
         }
-//        public boolean isAdded() {
-//            return getActivity() != null && isAdded();
-//        }
 
     }
 
@@ -275,9 +231,6 @@ public class ChatFrag extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-//        if(isAdded()) {
-//            viewPagerAdapter.setUsersList(mUsersList);
-//        }
         status("online");
     }
 

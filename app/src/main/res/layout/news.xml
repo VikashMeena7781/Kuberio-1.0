@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@drawable/kuberio_background"
+    tools:context="com.vikash.kuberio10.Dashboard_2.NewsFrag">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/layout"
+        android:gravity="center_horizontal"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:background="@drawable/custom_button_bg"
+            android:layout_height="wrap_content"
+            android:id="@+id/news"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="GetNews" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="60dp"
+            android:background="@drawable/custom_button_bg"
+            android:id="@+id/mainNews"
+            android:textSize="15sp"
+            android:text="Getstocknews" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout"
+        android:id="@+id/recycler_view"/>
+
+</RelativeLayout>

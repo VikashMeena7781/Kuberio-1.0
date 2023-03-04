@@ -11,4 +11,5 @@
     <color name="colortextsecond">#777474</color>
     <color name="colorPrimary">#0730FF</color>
     <color name="colorPrimaryDark">#FFC107</color>
+    <color name="custom_button_bg_color">#2C662E</color>
 </resources>

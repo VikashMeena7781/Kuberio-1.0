@@ -1,5 +1,6 @@
 package com.vikash.kuberio10.Dashboard_2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -25,9 +27,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.vikash.kuberio10.Pdf;
 import com.vikash.kuberio10.R;
 import com.vikash.kuberio10.SlideShow.ExpandableListViewAdapter;
 import com.vikash.kuberio10.SlideShow.SliderAdapter;
+import com.vikash.kuberio10.SlideShow.SliderModal;
 import com.vikash.kuberio10.User_Info;
 
 import java.util.ArrayList;
@@ -142,21 +146,6 @@ public class HomeFrag extends Fragment {
 
 
 
-
-//        /** to set username fetch data from database with mobile_number used*/
-//        MyDbHandler db = new MyDbHandler(getContext());
-//        String number = getActivity().getIntent().getStringExtra("mobile_number");
-//        if(number!=null){
-//            ArrayList<String> user_info = db.User_info(number);
-//
-//            String firstname = user_info.get(0);
-//            String lastname = user_info.get(1);
-//
-//            user_name.setText(firstname+" "+lastname);
-//        }
-
-
-
         ImageView notification = view.findViewById(R.id.notification);
         notification.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,7 +165,7 @@ public class HomeFrag extends Fragment {
         card_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fragment fragment = new TrackerFrag();
+                Fragment fragment = new NewsFrag();
                 FragmentManager fm = getActivity().getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
                 ft.replace(R.id.Conatiner,fragment);
@@ -188,60 +177,66 @@ public class HomeFrag extends Fragment {
         card_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(),Pdf.class);
+                intent.putExtra("link","");
+                startActivity(intent);
             }
         });
 
         card_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(),Pdf.class);
+                intent.putExtra("link","");
+                startActivity(intent);
             }
         });
 
         card_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Coming Soon",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getContext(),Pdf.class);
+                intent.putExtra("link","");
+                startActivity(intent);
             }
         });
 
 
         /**Bug in Custom Slider Code*/
 
-//        viewPager = view.findViewById(R.id.idViewPager);
-//        dotsLL = view.findViewById(R.id.idLLDots);
-//
-//        // in below line we are creating a new array list.
-//        sliderModalArrayList = new ArrayList<SliderModal>();
-//
-//        // on below 3 lines we are adding data to our array list.
-//        sliderModalArrayList.add(new SliderModal("Unify your Mutual Funds", "Track Mutual Fund investments bought across different apps"));
-//        sliderModalArrayList.add(new SliderModal("See your family's Mutual Funds", "Consolidate and get a health report of your entire family's Mutual Fund portfolio."));
-//        sliderModalArrayList.add(new SliderModal("Keep your portfolio updated", "Auto-sync your portfolio using your registered email(for Gmail users only)"));
-//
-//        // below line is use to add our array list to adapter class.
-//        adapter = new SliderAdapter(getContext(), sliderModalArrayList);
-//
-//        // below line is use to set our
-//        // adapter to our view pager.
-//        //Setting up Auto_Scrolling
-//        viewPager.startAutoScroll();
-//        viewPager.setInterval(5000);
-//        viewPager.setCycle(true);
-//        viewPager.setStopScrollWhenTouch(true);
-//        viewPager.setAdapter(adapter);
-//
-//        // we are storing the size of our
-//        // array list in a variable.
-//        size = sliderModalArrayList.size();
-//
-//        // calling method to add dots indicator
-//        addDots(size, 0);
-//
-//        // below line is use to call on
-//        // page change listener method.
-//        viewPager.addOnPageChangeListener(viewListener);
+        viewPager = view.findViewById(R.id.idViewPager);
+        dotsLL = view.findViewById(R.id.idLLDots);
+
+        // in below line we are creating a new array list.
+        ArrayList<SliderModal> sliderModalArrayList = new ArrayList<SliderModal>();
+
+        // on below 3 lines we are adding data to our array list.
+        sliderModalArrayList.add(new SliderModal("Unify your Mutual Funds", "Track Mutual Fund investments bought\n across different apps"));
+        sliderModalArrayList.add(new SliderModal("See your family's Mutual Funds", "Consolidate and get a health report of \nyour entire family's Mutual Fund portfolio."));
+        sliderModalArrayList.add(new SliderModal("Keep your portfolio updated", "Auto-sync your portfolio using \nyour registered email(for Gmail users only)"));
+
+        // below line is use to add our array list to adapter class.
+        adapter = new SliderAdapter(getContext(), sliderModalArrayList);
+
+        // below line is use to set our
+        // adapter to our view pager.
+        //Setting up Auto_Scrolling
+        viewPager.startAutoScroll();
+        viewPager.setInterval(5000);
+        viewPager.setCycle(true);
+        viewPager.setStopScrollWhenTouch(true);
+        viewPager.setAdapter(adapter);
+
+        // we are storing the size of our
+        // array list in a variable.
+        size = sliderModalArrayList.size();
+
+        // calling method to add dots indicator
+        addDots(size, 0);
+
+        // below line is use to call on
+        // page change listener method.
+        viewPager.addOnPageChangeListener(viewListener);
 
         return view;
     }
@@ -309,18 +304,23 @@ public class HomeFrag extends Fragment {
         for (int i = 0; i < size; i++) {
             // below line is use to add the
             // dots and modify its color.
-            dots[i] = new TextView(getContext());
-            dots[i].setText(Html.fromHtml("•"));
-            dots[i].setTextSize(35);
+            if(getContext()!=null){
+                dots[i] = new TextView(getContext());
+                dots[i].setText(Html.fromHtml("•"));
+                dots[i].setTextSize(35);
 
-            // below line is called when the dots are not selected.
-            dots[i].setTextColor(getResources().getColor(R.color.black));
-            dotsLL.addView(dots[i]);
+                // below line is called when the dots are not selected.
+                dots[i].setTextColor(getResources().getColor(R.color.black));
+                dotsLL.addView(dots[i]);
+            }
+
         }
         if (dots.length > 0) {
             // this line is called when the dots
             // inside linear layout are selected
-            dots[pos].setTextColor(getResources().getColor(R.color.purple_200));
+            if(getContext()!=null){
+                dots[pos].setTextColor(ContextCompat.getColor(getContext(), R.color.purple_200));
+            }
         }
     }
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {

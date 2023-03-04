@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:id="@+id/header">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="Source :"
+                        android:layout_margin="5sp"
+                        android:textColor="@color/black"
+                        android:fontFamily="sans-serif"
+                        android:textSize="20sp"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Policy"
+                        android:layout_margin="5sp"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:id="@+id/source1"
+                        android:textColor="@color/black"
+                        />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/title1"
+                android:layout_below="@+id/header"
+                android:layout_marginRight="5sp"
+                android:text="Nicola Sturgeon Reported to Police Over Apparent Face Mask Law Branch"
+                android:layout_marginLeft="5sp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/black"
+                android:textSize="25sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:textSize="20sp"
+                android:layout_below="@+id/title1"
+                android:id="@+id/link1"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textStyle="bold"
+                android:background="@drawable/underline"
+                android:layout_marginBottom="5sp"
+                android:text="explore more"/>
+
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</ScrollView>

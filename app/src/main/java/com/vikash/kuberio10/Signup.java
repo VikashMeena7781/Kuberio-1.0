@@ -104,7 +104,6 @@ public class Signup extends AppCompatActivity {
                         user_info.setNumber(number);
                         user_info.setStatus("offline");
                         user_info.setSearch(username.toLowerCase());
-
                         user=auth.getCurrentUser();
                         if(user!=null){
                             String id = user.getUid();

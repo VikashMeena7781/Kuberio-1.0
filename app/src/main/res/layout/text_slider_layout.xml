@@ -6,7 +6,6 @@
     android:background="@color/purple_200"
     android:orientation="vertical"
     android:layout_height="wrap_content">
-
     <!--text view for displaying
         our heading-->
     <TextView
@@ -19,7 +18,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="10dp"
         android:padding="10dp"
-        android:text="See your family's Mutul Funds"
+        android:text="See your family's Mutual Funds"
         android:textAlignment="center"
         android:fontFamily="sans-serif-light"
         android:textSize="20sp"
@@ -31,7 +30,7 @@
         slider description-->
     <TextView
         android:id="@+id/idTVheading"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_below="@+id/idTVtitle"

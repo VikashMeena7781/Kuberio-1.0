@@ -11,11 +11,10 @@ import android.view.MenuItem;
 import android.view.WindowManager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.vikash.kuberio10.Dashboard_2.Chat_Fragment.ChatFragment;
 import com.vikash.kuberio10.Dashboard_2.HomeFrag;
 import com.vikash.kuberio10.Dashboard_2.MoreFrag;
 import com.vikash.kuberio10.Dashboard_2.ProductsFrag;
-import com.vikash.kuberio10.Dashboard_2.TrackerFrag;
+import com.vikash.kuberio10.Dashboard_2.NewsFrag;
 import com.vikash.kuberio10.Dashboard_2.ChatFrag;
 
 
@@ -47,7 +46,7 @@ public class Dashboard extends AppCompatActivity {
 //                    transaction.addToBackStack(null); // Add the fragment to the back stack
 //                    transaction.commit();
                 }else if (id==R.id.tracker) {
-                    loadfrag(new TrackerFrag());
+                    loadfrag(new NewsFrag());
                 }
                 else {
                     loadfrag(new MoreFrag());
